@@ -12,8 +12,29 @@ autocmd Filetype vim setlocal foldmethod=indent
     Plugin 'VundleVim/Vundle.vim'
 
     "Plugins
+    "General
     Plugin 'tpope/vim-fugitive'
     Plugin 'scrooloose/nerdtree'
+    Plugin 'kien/ctrlp.vim'
+    Plugin 'tacahiroy/ctrlp-funky'
+    Plugin 'junegunn/vim-easy-align'
+    Plugin 'tpope/vim-surround'
+    Plugin 'tpope/vim-repeat'
+    Plugin 'rhysd/conflict-marker.vim'
+    Plugin 'jiangmiao/auto-pairs'
+    "Plugin 'easymotion/vim-easymotion' need to set it up properly
+    Plugin 'nathanaelkane/vim-indent-guides'
+    Plugin 'mhinz/vim-signify'
+    Plugin 'osyo-manga/vim-over'
+
+    "HTML
+    Plugin 'mattn/emmet-vim'
+    Plugin 'emmetio/emmet'
+
+    "Python
+    Plugin 'klen/python-mode'
+    Plugin 'vim-scripts/python_match.vim'
+    Plugin 'vim-scripts/pythoncomplete'
 
     call vundle#end()            " required
     filetype plugin indent on    " required
@@ -28,6 +49,8 @@ autocmd Filetype vim setlocal foldmethod=indent
     set relativenumber "sets makes line number count relative to current line
     set tw=79
     set cc=80
+    "sudo save
+    cmap w!! w !sudo tee > /dev/null %
 
     "Indents
     set ts=8 sts=4 sw=4 noexpandtab
@@ -45,6 +68,7 @@ autocmd Filetype vim setlocal foldmethod=indent
     autocmd Filetype html setlocal sts=2 sw=2 noexpandtab
     autocmd Filetype css setlocal sts=2 sw=2 noexpandtab
     autocmd Filetype latex setlocal sts=2 sw=2 expandtab
+    autocmd Filetype haskell setlocal sts=4 sw=4 expandtab
 
     "Make defaults
 	"python
@@ -66,6 +90,9 @@ autocmd Filetype vim setlocal foldmethod=indent
     autocmd Filetype haskell setlocal autowrite
     nmap <Leader>mh :set makeprg=ghci\ %<CR>
     nmap <Leader>mH :set makeprg=ghc\ -o\ vimout\ %\ &&\ ./vimout<CR>
+
+    "Prolog Settins
+    let g:filetype_pl="prolog"
 "==============================================================================
 
 
@@ -95,4 +122,27 @@ autocmd Filetype vim setlocal foldmethod=indent
 	" Mnemonic _i_nteractive
 	nnoremap <silent> <leader>gi :Git add -p %<CR>
 	nnoremap <silent> <leader>gg :SignifyToggle<CR>
+    endif
+
+    "Vim-easy-align
+    if isdirectory(expand("~/.vim/bundle/vim-easy-align"))
+	" Start interactive EasyAlign in visual mode (e.g. vipga)
+	xmap ga <Plug>(EasyAlign)
+	xmap Ga <Plug>(LiveEasyAlign)
+	" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+	nmap ga <Plug>(EasyAlign)
+	nmap Ga <Plug>(LiveEasyAlign)
+    endif
+
+    "Emmet-vim
+    if isdirectory(expand("~/.vim/bundle/emmet-vim"))
+	let g:user_emmet_leader_key='<C-J>'
+	"let g:user_emmet_install_global = 0
+	"autocmd FileType html,css,javascript,php EmmetInstall
+    endif
+
+    "Ctrlp
+    if isdirectory(expand("~/.vim/bundle/ctrlp.vim"))
+	let g:ctrlp_working_path_mode = 'ra'
+	 set wildignore+=*/tmp/*,*.so,*.swp,*.zip  
     endif

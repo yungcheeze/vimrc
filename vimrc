@@ -26,6 +26,7 @@ autocmd Filetype vim setlocal foldmethod=indent
     Plugin 'nathanaelkane/vim-indent-guides'
     Plugin 'mhinz/vim-signify'
     Plugin 'osyo-manga/vim-over'
+    Plugin 'scrooloose/nerdcommenter'
 
     "HTML
     Plugin 'mattn/emmet-vim'
@@ -35,6 +36,9 @@ autocmd Filetype vim setlocal foldmethod=indent
     Plugin 'klen/python-mode'
     Plugin 'vim-scripts/python_match.vim'
     Plugin 'vim-scripts/pythoncomplete'
+
+    "latex
+    Plugin 'vim-latex/vim-latex'
 
     call vundle#end()            " required
     filetype plugin indent on    " required
@@ -55,14 +59,19 @@ autocmd Filetype vim setlocal foldmethod=indent
     "Indents
     set ts=8 sts=4 sw=4 noexpandtab
 
+    "i.e. search first / then replace :s%//<replacement phrase>/g
+    set incsearch
     "one-time cure for backslashitis
-    noremap ;; :%s:::g<Left><Left><Left>
-    noremap ;' :%s:::cg<Left><Left><Left><Left>'
+    noremap ;; :%s:::g<Left><Left>
+    vnoremap ;; :s:::g<Left><Left>
+    noremap ;' :%s:::cg<Left><Left><Left>
+    nmap<Leader>; :'b,'es:::g<Left><Left>
 
     "leader shortcuts
     nnoremap <leader>y "*y
     nnoremap <leader>p "*p
     nnoremap <silent> <leader>w :cwindow<CR>
+    nmap <Leader>o :only<CR>
 
     "Filetype shiftwidths
     autocmd Filetype html setlocal sts=2 sw=2 noexpandtab
@@ -144,5 +153,36 @@ autocmd Filetype vim setlocal foldmethod=indent
     "Ctrlp
     if isdirectory(expand("~/.vim/bundle/ctrlp.vim"))
 	let g:ctrlp_working_path_mode = 'ra'
-	 set wildignore+=*/tmp/*,*.so,*.swp,*.zip  
+	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.pyc,*.ctxt,*.bluej  
+    endif
+
+    "Latex-Suite
+    if isdirectory(expand("~/.vim/bundle/vim-latex"))
+	" override <Leader>lv
+	nnoremap <Leader>lv :silent !open expand("%:r") . '.pdf'<CR>:echo worked!<CR>
+
+	" IMPORTANT- grep will sometimes skip displaying the file name if you
+	" search in a singe file. This will confuse Latex-Suite. Set your grep
+	" program to always generate a file-name."
+	set grepprg=grep\ -nH\ $*
+
+	" compile to pdf and use preview
+	let g:Tex_DefaultTargetFormat='pdf'
+
+	" pdf compile and view settings
+	" let g:Tex_ViewRule_pdf='Skim'
+	let g:Tex_CompileRule_pdf='latexmk -pdf'
+
+	" dvi compile and view settings
+	let g:Tex_ViewRule_dvi="Skiim"
+	let g:Tex_CompileRule_dvi='latex -src -specials -interaction=nonstopmode $*'
+
+	" ignore all warnings below level 4
+	let g:TCLevel=4
+
+	" go to first error after pressing \ll
+	let g:Tex_GotoError=1
+
+	" one last thing for latex
+	let g:tex_flavor='latex'
     endif

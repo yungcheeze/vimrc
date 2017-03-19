@@ -27,10 +27,20 @@ autocmd Filetype vim setlocal foldmethod=indent
     Plugin 'mhinz/vim-signify'
     Plugin 'osyo-manga/vim-over'
     Plugin 'scrooloose/nerdcommenter'
+    Plugin 'reedes/vim-wordy'
+    Plugin 'leifdenby/vim-spellcheck-toggle'   
+    Plugin 'bling/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'flazz/vim-colorschemes'
 
     "HTML
     Plugin 'mattn/emmet-vim'
     Plugin 'emmetio/emmet'
+    Plugin 'hail2u/vim-css3-syntax'
+    Plugin 'gorodinskiy/vim-coloresque'
+    Plugin 'gregsexton/matchtag'
+    Plugin 'tmhedberg/matchit'
+    Plugin 'XML-Folding'
 
     "Python
     Plugin 'klen/python-mode'
@@ -53,6 +63,9 @@ autocmd Filetype vim setlocal foldmethod=indent
     set relativenumber "sets makes line number count relative to current line
     set tw=79
     set cc=80
+    set nowrap
+    "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
+
     "sudo save
     cmap w!! w !sudo tee > /dev/null %
 
@@ -70,8 +83,14 @@ autocmd Filetype vim setlocal foldmethod=indent
     "leader shortcuts
     nnoremap <leader>y "*y
     nnoremap <leader>p "*p
+    nnoremap <leader>Y "+y
+    nnoremap <leader>P "+p
     nnoremap <silent> <leader>w :cwindow<CR>
     nmap <Leader>o :only<CR>
+
+    "set spellchecking
+    set spell
+    set spelllang=en_gb
 
     "Filetype shiftwidths
     autocmd Filetype html setlocal sts=2 sw=2 noexpandtab
@@ -185,4 +204,32 @@ autocmd Filetype vim setlocal foldmethod=indent
 
 	" one last thing for latex
 	let g:tex_flavor='latex'
+    endif
+
+    "Matchit
+    if isdirectory(expand("~/.vim/bundle/matchit"))
+	let b:match_ignorecase = 1
+    endif
+
+    "Wordy
+    if isdirectory(expand("~/.vim/bundle/vim-wordy"))
+	noremap <silent> <F8> :<C-u>NextWordy<cr>
+	xnoremap <silent> <F8> :<C-u>NextWordy<cr>
+	inoremap <silent> <F8> <C-o>:NextWordy<cr>
+    endif
+    "XML-Foldint
+    "if isdirectory(expand("~/.vim/bundle/XML-Folding"))
+	"au BufNewFile,BufRead *.xml,*.htm,*.html so XMLFolding
+    "endif
+    "Vim-Spellcheck-toggle
+    if isdirectory(expand("~/.vim/bundle/vim-spellcheck-toggle"))
+	map <F6> :call ToggleSpell()<CR>
+    endif
+    if isdirectory(expand("~/.vim/bundle/vim-spellcheck-toggle"))
+	let g:airline_theme='tomorrow'
+	let g:airline_left_sep = ''
+	let g:airline_symbols = {}
+	let g:airline_symbols.branch = ''
+	let g:airline_symbols.readonly = ''
+	let g:airline_symbols.linenr = ''
     endif

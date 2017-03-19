@@ -228,7 +228,9 @@ autocmd Filetype vim setlocal foldmethod=indent
     if isdirectory(expand("~/.vim/bundle/vim-spellcheck-toggle"))
 	let g:airline_theme='tomorrow'
 	let g:airline_left_sep = ''
-	let g:airline_symbols = {}
+	if !exists('g:airline_symbols')
+	    let g:airline_symbols = {}
+	endif
 	let g:airline_symbols.branch = ''
 	let g:airline_symbols.readonly = ''
 	let g:airline_symbols.linenr = ''

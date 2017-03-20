@@ -28,10 +28,15 @@ autocmd Filetype vim setlocal foldmethod=indent
     Plugin 'osyo-manga/vim-over'
     Plugin 'scrooloose/nerdcommenter'
     Plugin 'reedes/vim-wordy'
-    Plugin 'leifdenby/vim-spellcheck-toggle'   
+    Plugin 'leifdenby/vim-spellcheck-toggle'
     Plugin 'bling/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'flazz/vim-colorschemes'
+
+    Plugin 'scrooloose/syntastic'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets'
+    Plugin 'valloric/youcompleteme'
 
     "HTML
     Plugin 'mattn/emmet-vim'
@@ -64,7 +69,9 @@ autocmd Filetype vim setlocal foldmethod=indent
     set tw=79
     set cc=80
     set nowrap
-    "set guifont=Droid\ Sans\ Mono\ for\ Powerline\ 10
+
+    set t_Co=256
+    colorscheme petrel
 
     "sudo save
     cmap w!! w !sudo tee > /dev/null %
@@ -164,7 +171,7 @@ autocmd Filetype vim setlocal foldmethod=indent
 
     "Emmet-vim
     if isdirectory(expand("~/.vim/bundle/emmet-vim"))
-	let g:user_emmet_leader_key='<C-J>'
+	let g:user_emmet_leader_key='<C-E>'
 	"let g:user_emmet_install_global = 0
 	"autocmd FileType html,css,javascript,php EmmetInstall
     endif
@@ -172,7 +179,7 @@ autocmd Filetype vim setlocal foldmethod=indent
     "Ctrlp
     if isdirectory(expand("~/.vim/bundle/ctrlp.vim"))
 	let g:ctrlp_working_path_mode = 'ra'
-	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.pyc,*.ctxt,*.bluej  
+	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.pyc,*.ctxt,*.bluej
     endif
 
     "Latex-Suite
@@ -219,19 +226,55 @@ autocmd Filetype vim setlocal foldmethod=indent
     endif
     "XML-Foldint
     "if isdirectory(expand("~/.vim/bundle/XML-Folding"))
-	"au BufNewFile,BufRead *.xml,*.htm,*.html so XMLFolding
+    "au BufNewFile,BufRead *.xml,*.htm,*.html so XMLFolding
     "endif
+    "
     "Vim-Spellcheck-toggle
     if isdirectory(expand("~/.vim/bundle/vim-spellcheck-toggle"))
 	map <F6> :call ToggleSpell()<CR>
     endif
-    if isdirectory(expand("~/.vim/bundle/vim-spellcheck-toggle"))
-	let g:airline_theme='tomorrow'
+    "Airline
+    if isdirectory(expand("~/.vim/bundle/vim-airline"))
+	set laststatus=2
+	let g:airline_theme='base16_atelierlakeside'
 	let g:airline_left_sep = ''
+
 	if !exists('g:airline_symbols')
 	    let g:airline_symbols = {}
 	endif
+
 	let g:airline_symbols.branch = ''
 	let g:airline_symbols.readonly = ''
 	let g:airline_symbols.linenr = ''
+    endif
+
+    "Syntastic
+    if isdirectory(expand("~/.vim/bundle/syntastic"))
+	set statusline+=%#warningmsg#
+	set statusline+=%{SyntasticStatuslineFlag()}
+	set statusline+=%*
+
+	let g:syntastic_always_populate_loc_list = 1
+	let g:syntastic_auto_loc_list = 1
+	let g:syntastic_check_on_open = 1
+	let g:syntastic_check_on_wq = 0
+    endif
+
+    "Ultisnips
+    if isdirectory(expand("~/.vim/bundle/ultisnips"))
+	let g:UltiSnipsUsePythonVersion = 3
+	let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+	" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+	let g:UltiSnipsExpandTrigger="<tab>"
+	let g:UltiSnipsListSnippetst="<c-tab>"
+	let g:UltiSnipsJumpForwardTrigger="<c-j>"
+	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+	inoremap <c-x><c-k> <c-x><c-k>
+	" If you want :UltiSnipsEdit to split your window.
+	let g:UltiSnipsEditSplit="vertical"
+    endif
+    
+    if isdirectory(expand("~/.vim/bundle/youcompleteme"))
+	let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+	let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
     endif

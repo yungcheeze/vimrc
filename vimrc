@@ -298,4 +298,7 @@
 	    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
 	endif
     endif
+
+    if isdirectory(expand("~/.vim/bundle/vim-notes"))
+	let g:notes_directories = ['~/Dropbox/Vim Notes']
     endif

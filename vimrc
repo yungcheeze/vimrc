@@ -54,7 +54,6 @@
     Plugin 'gorodinskiy/vim-coloresque'
     Plugin 'gregsexton/matchtag'
     Plugin 'tmhedberg/matchit'
-    Plugin 'XML-Folding'
 
     "Python
     Plugin 'klen/python-mode'

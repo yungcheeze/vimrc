@@ -1,0 +1,150 @@
+
+" EXTRA:
+"
+" ADD VUNDLE:
+    filetype off                  " required
+
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/Vundle.vim
+    call vundle#begin()
+
+    " let Vundle manage Vundle, required
+    Plugin 'VundleVim/Vundle.vim'
+
+    "Plugins
+    Plugin 'tpope/vim-fugitive'
+    call vundle#end()            " required
+    filetype plugin indent on    " required
+
+" MY OTHER SETTINGS:
+    let mapleader = " "
+    set mouse=a
+
+    set relativenumber "sets makes line number count relative to current line
+    set tw=79
+    set cc=80
+    set nowrap
+
+    set t_Co=256
+    colorscheme petrel
+
+    "sudo save
+    cmap w!! w !sudo tee > /dev/null %
+
+    "Indents
+    set ts=8 sts=4 sw=4 noexpandtab
+
+    "i.e. search first / then replace :s%//<replacement phrase>/g
+    set incsearch
+    "one-time cure for backslashitis
+    noremap ;; :%s:::g<Left><Left>
+    vnoremap ;; :s:::g<Left><Left>
+    noremap ;' :%s:::cg<Left><Left><Left>
+    nmap<Leader>; :'b,'es:::g<Left><Left>
+
+    "leader shortcuts
+    nnoremap <leader>y "*y
+    nnoremap <leader>p "*p
+    nnoremap <leader>Y "+y
+    nnoremap <leader>P "+p
+    nnoremap <silent> <leader>w :cwindow<CR>
+    nmap <Leader>o :only<CR>
+
+    "set spellchecking
+    set spell
+    set spelllang=en_gb
+
+    "Filetype shiftwidths
+    autocmd Filetype html setlocal sts=2 sw=2 noexpandtab foldmethod=manual
+    autocmd Filetype css setlocal sts=2 sw=2 noexpandtab
+    autocmd Filetype latex setlocal sts=2 sw=2 expandtab
+    autocmd Filetype haskell setlocal sts=4 sw=4 expandtab
+
+"FUGITIVE:
+    if isdirectory(expand("~/.vim/bundle/vim-fugitive"))
+	nnoremap <silent> <leader>ga :Gcommit -i %<CR>
+	nnoremap <silent> <leader>gA :Gcommit -a<CR>
+	nnoremap <silent> <leader>gvd :Gvdiff<CR>
+	nnoremap <silent> <leader>gs :Gstatus<CR>
+	nnoremap <silent> <leader>gd :Gdiff<CR>
+	nnoremap <silent> <leader>gc :Gcommit<CR>
+	"nnoremap <silent> <leader>gb :Gblame<CR>
+	nnoremap <silent> <leader>gl :Glog<CR>
+	nnoremap <silent> <leader>gp :Git push<CR>
+	nnoremap <silent> <leader>gr :Gread<CR>
+	nnoremap <silent> <leader>gw :Gwrite<CR>
+	nnoremap <silent> <leader>ge :Gedit<CR>
+	" Mnemonic _i_nteractive
+	nnoremap <silent> <leader>gi :Git add -p %<CR>
+	nnoremap <silent> <leader>gg :SignifyToggle<CR>
+    endif
+" {{{ BASIC SETUP
+" BASIC SETUP:
+    " enter the current millenium
+    set nocompatible
+    " enable syntax and plugins (for netrw)
+    syntax enable
+    filetype plugin on
+
+" FINDING FILES:
+    " Search down into subfolders
+    " Provides tab-completion for all file-related tasks
+    set path+=**
+    " Display all matching files when we tab complete
+    set wildmenu
+    " NOW WE CAN:
+    " - Hit tab to :find by partial match
+    " - Use * to make it fuzzy
+    " THINGS TO CONSIDER:
+    " - :b lets you autocomplete any open buffer
+
+" TAG JUMPING:
+    " Create the `tags` file (may need to install ctags first)
+    command! MakeTags !ctags -R .
+    " NOW WE CAN:
+    " - Use ^] to jump to tag under cursor
+    " - Use g^] for ambiguous tags
+    " - Use ^t to jump back up the tag stack
+    " THINGS TO CONSIDER:
+    " - This doesn't help if you want a visual list of tags
+
+" AUTOCOMPLETE:
+    " The good stuff is documented in |ins-completion|
+    " HIGHLIGHTS:
+    " - ^x^n for JUST this file
+    " - ^x^f for filenames (works with our path trick!)
+    " - ^x^] for tags only
+    " - ^n for anything specified by the 'complete' option
+    " NOW WE CAN:
+    " - Use ^n and ^p to go back and forth in the suggestion list
+
+" FILE BROWSING:
+    " Tweaks for browsing
+    let g:netrw_banner=0        " disable annoying banner
+    let g:netrw_browse_split=4  " open in prior window
+    let g:netrw_altv=1          " open splits to the right
+    let g:netrw_liststyle=3     " tree view
+    let g:netrw_list_hide=netrw_gitignore#Hide()
+    let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+    " NOW WE CAN:
+    " - :edit a folder to open a file browser
+    " - <CR>/v/t to open in an h-split/v-split/tab
+    " - check |netrw-browse-maps| for more mappings
+
+" SNIPPETS:
+    " Read an empty HTML template and move cursor to title
+    "nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
+    " NOW WE CAN:
+    " - Take over the world!
+    "   (with much fewer keystrokes)
+
+" BUILD INTEGRATION:
+    " Steal Mr. Bradley's formatter & add it to our spec_helper
+    " http://philipbradley.net/rspec-into-vim-with-quickfix
+    " Configure the `make` command to run RSpec
+    "set makeprg=bundle\ exec\ rspec\ -f\ QuickfixFormatter
+    " NOW WE CAN:
+    " - Run :make to run RSpec
+    " - :cl to list errors
+    " - :cc# to jump to error by number
+    " - :cn and :cp to navigate forward and back

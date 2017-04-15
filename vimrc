@@ -91,10 +91,10 @@
     "i.e. search first / then replace :s%//<replacement phrase>/g
     set incsearch
     "one-time cure for backslashitis
-    noremap ;; :%s:::g<Left><Left>
-    vnoremap ;; :s:::g<Left><Left>
-    noremap ;' :%s:::cg<Left><Left><Left>
-    nmap<Leader>; :'b,'es:::g<Left><Left>
+    noremap <leader>;; :%s:::g<Left><Left>
+    vnoremap <leader>;; :s:::g<Left><Left>
+    noremap <leader>;c :%s:::cg<Left><Left><Left>
+    noremap<Leader>;' :'b,'es:::g<Left><Left>
 
     "leader shortcuts
     nnoremap <leader>y "*y
@@ -109,34 +109,40 @@
     set spelllang=en_gb
 
     "Filetype shiftwidths
-    autocmd Filetype html setlocal sts=2 sw=2 noexpandtab
+    autocmd Filetype html setlocal sts=2 sw=2 noexpandtab foldmethod=manual
     autocmd Filetype css setlocal sts=2 sw=2 noexpandtab
     autocmd Filetype latex setlocal sts=2 sw=2 expandtab
     autocmd Filetype haskell setlocal sts=4 sw=4 expandtab
+
+    "php settings
+    autocmd Filetype php nmap <Leader>mp :set filetype=php<CR>
+    autocmd Filetype php nmap <Leader>mh :set filetype=html<CR>
 
     "Make defaults
 	"python
     autocmd Filetype python setlocal makeprg=python3\ %
     autocmd Filetype python setlocal autowrite
-    nmap <Leader>m :make<CR>
-    nmap <Leader>mm :make<CR>
-    nmap <Leader>mn :set makeprg=
-    nmap <Leader>mp :set makeprg=python3\ %<CR>
-    nmap <Leader>mP :set makeprg=python\ %<CR>
-    nmap <Leader>ma :set autowrite<CR>
+    autocmd Filetype python nmap <Leader>m :make<CR>
+    autocmd Filetype python nmap <Leader>mm :make<CR>
+    autocmd Filetype python nmap <Leader>mn :set makeprg=
+    autocmd Filetype python nmap <Leader>mp :set makeprg=python3\ %<CR>
+    autocmd Filetype python nmap <Leader>mP :set makeprg=python\ %<CR>
+    autocmd Filetype python nmap <Leader>ma :set autowrite<CR>
 	"c
     autocmd Filetype c setlocal makeprg=gcc\ %\ &&\ ./a.out
     autocmd Filetype c setlocal autowrite
-    nmap <Leader>mc :set makeprg=gcc\ %\ &&\ ./a.out<CR>
+    autocmd Filetype c nmap <Leader>mc :set makeprg=gcc\ %\ &&\ ./a.out<CR>
 	"haskell
     "autocmd Filetype haskell setlocal makeprg=ghc\ -o\ vimout\ %\ &&\ ./vimout
     autocmd Filetype haskell setlocal makeprg=ghci\ %
     autocmd Filetype haskell setlocal autowrite
-    nmap <Leader>mh :set makeprg=ghci\ %<CR>
-    nmap <Leader>mH :set makeprg=ghc\ -o\ vimout\ %\ &&\ ./vimout<CR>
+    autocmd Filetype haskell nmap <Leader>mh :set makeprg=ghci\ %<CR>
+    autocmd Filetype haskell nmap <Leader>mH :set makeprg=ghc\ -o\ vimout\ %\ &&\ ./vimout<CR>
 
     "Prolog Settins
     let g:filetype_pl="prolog"
+    autocmd Filetype prolog setlocal makeprg=swipl\ %
+    autocmd Filetype prolog setlocal autowrite
 "==============================================================================
 
 
@@ -245,6 +251,7 @@
     "Airline
     if isdirectory(expand("~/.vim/bundle/vim-airline"))
 	set laststatus=2
+	let g:airline_powerline_fonts = 1
 	let g:airline_theme='base16_atelierlakeside'
 	let g:airline_left_sep = ''
 

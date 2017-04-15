@@ -42,6 +42,11 @@
     Plugin 'majutsushi/tagbar'
     Plugin 'ludovicchabant/vim-gutentags'
 
+    Plugin 'xolox/vim-notes'
+    Plugin 'xolox/vim-misc'
+    Plugin 'DrawIt'
+    Plugin 'Txtfmt-The-Vim-Highlighter'
+
     "HTML
     Plugin 'mattn/emmet-vim'
     Plugin 'emmetio/emmet'

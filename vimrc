@@ -1,4 +1,3 @@
-autocmd Filetype vim setlocal foldmethod=indent
 "VUNDLE#
 "==============================================================================
     set nocompatible              " be iMproved, required
@@ -62,6 +61,7 @@ autocmd Filetype vim setlocal foldmethod=indent
 
 "Pure Vim Settings
 "==============================================================================
+    autocmd Filetype vim setlocal foldmethod=indent
     let mapleader = " "
     set mouse=a
 

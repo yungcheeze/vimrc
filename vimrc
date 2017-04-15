@@ -14,6 +14,7 @@
     "General
     Plugin 'tpope/vim-fugitive'
     Plugin 'scrooloose/nerdtree'
+    Plugin 'sjl/gundo.vim'
     Plugin 'kien/ctrlp.vim'
     Plugin 'tacahiroy/ctrlp-funky'
     Plugin 'junegunn/vim-easy-align'

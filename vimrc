@@ -20,6 +20,8 @@
     Plugin 'junegunn/vim-easy-align'
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-repeat'
+    Plugin 'tpope/vim-unimpaired'
+    Plugin 'tpope/vim-abolish'
     Plugin 'rhysd/conflict-marker.vim'
     Plugin 'jiangmiao/auto-pairs'
     "Plugin 'easymotion/vim-easymotion' need to set it up properly
@@ -37,6 +39,8 @@
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets'
     Plugin 'valloric/youcompleteme'
+    Plugin 'majutsushi/tagbar'
+    Plugin 'ludovicchabant/vim-gutentags'
 
     "HTML
     Plugin 'mattn/emmet-vim'

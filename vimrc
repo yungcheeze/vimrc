@@ -278,4 +278,11 @@
     if isdirectory(expand("~/.vim/bundle/youcompleteme"))
 	let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 	let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+
+    if isdirectory(expand("~/.vim/bundle/gundo.vim"))
+	nnoremap <leader>u :GundoToggle<CR>
+	if has('python3')
+	    let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
+	endif
+    endif
     endif

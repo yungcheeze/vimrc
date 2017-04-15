@@ -278,6 +278,11 @@
     if isdirectory(expand("~/.vim/bundle/youcompleteme"))
 	let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 	let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+    endif
+
+    if isdirectory(expand("~/.vim/bundle/tagbar"))
+        nmap <F7> :TagbarToggle<CR>
+    endif
 
     if isdirectory(expand("~/.vim/bundle/gundo.vim"))
 	nnoremap <leader>u :GundoToggle<CR>

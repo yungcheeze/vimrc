@@ -12,40 +12,55 @@
 
     "Plugins
     "General
-    Plugin 'tpope/vim-fugitive'
-    Plugin 'scrooloose/nerdtree'
-    Plugin 'sjl/gundo.vim'
-    Plugin 'kien/ctrlp.vim'
-    Plugin 'tacahiroy/ctrlp-funky'
     Plugin 'junegunn/vim-easy-align'
-    Plugin 'tpope/vim-surround'
-    Plugin 'tpope/vim-repeat'
     Plugin 'tpope/vim-unimpaired'
     Plugin 'tpope/vim-abolish'
-    Plugin 'rhysd/conflict-marker.vim'
-    Plugin 'jiangmiao/auto-pairs'
     "Plugin 'easymotion/vim-easymotion' need to set it up properly
     Plugin 'nathanaelkane/vim-indent-guides'
     Plugin 'mhinz/vim-signify'
     Plugin 'osyo-manga/vim-over'
-    Plugin 'scrooloose/nerdcommenter'
-    Plugin 'reedes/vim-wordy'
-    Plugin 'leifdenby/vim-spellcheck-toggle'
     Plugin 'bling/vim-airline'
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'flazz/vim-colorschemes'
 
+    "Git
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'rhysd/conflict-marker.vim'
+  
+ 
+    "Session Management
+    Plugin 'thaerkh/vim-workspace'
+    Plugin 'xolox/vim-session'
+    Plugin 'sjl/gundo.vim'
+
+    "Browsing
+    Plugin 'tacahiroy/ctrlp-funky'
+    Plugin 'kien/ctrlp.vim'
+    Plugin 'scrooloose/nerdtree'
+    Plugin 'jlanzarotta/bufexplorer'
+
+    "Completion
+    Plugin 'tpope/vim-surround'
+    Plugin 'tpope/vim-repeat'
+    Plugin 'jiangmiao/auto-pairs'
+    Plugin 'scrooloose/nerdcommenter'
     Plugin 'scrooloose/syntastic'
     Plugin 'SirVer/ultisnips'
     Plugin 'honza/vim-snippets'
     Plugin 'valloric/youcompleteme'
     Plugin 'majutsushi/tagbar'
     Plugin 'ludovicchabant/vim-gutentags'
+    
+    "Spelling
+    Plugin 'reedes/vim-wordy'
+    Plugin 'leifdenby/vim-spellcheck-toggle'
 
+    "Notes
     Plugin 'xolox/vim-notes'
     Plugin 'xolox/vim-misc'
     Plugin 'DrawIt'
     Plugin 'Txtfmt-The-Vim-Highlighter'
+    Plugin 'chesleytan/wordcount.vim'
 
     "HTML
     Plugin 'mattn/emmet-vim'
@@ -92,15 +107,17 @@
     set incsearch
     "one-time cure for backslashitis
     noremap <leader>;; :%s:::g<Left><Left>
-    vnoremap <leader>;; :s:::g<Left><Left>
+    noremap <leader>;l :%s:::g<Left><Left>
     noremap <leader>;c :%s:::cg<Left><Left><Left>
     noremap<Leader>;' :'b,'es:::g<Left><Left>
+    vnoremap <leader>;; :s:::g<Left><Left>
 
     "leader shortcuts
-    nnoremap <leader>y "*y
-    nnoremap <leader>p "*p
-    nnoremap <leader>Y "+y
-    nnoremap <leader>P "+p
+    "N.B. register yank must be followed by a movement
+    noremap <leader>y "*y
+    noremap <leader>Y "+y
+    noremap <leader>p "*p
+    noremap <leader>P "+p
     nnoremap <silent> <leader>w :cwindow<CR>
     nmap <Leader>o :only<CR>
 
@@ -117,13 +134,17 @@
     "php settings
     autocmd Filetype php nmap <Leader>mp :set filetype=php<CR>
     autocmd Filetype php nmap <Leader>mh :set filetype=html<CR>
+    autocmd Filetype php nmap <Leader>mj :set filetype=javascript<CR>
+
+    "html settings
+    autocmd Filetype html nmap <Leader>mj :set filetype=javascript<CR>
 
     "Make defaults
+    nmap <Leader>m :make<CR>
+    nmap <Leader>mm :make<CR>
 	"python
     autocmd Filetype python setlocal makeprg=python3\ %
     autocmd Filetype python setlocal autowrite
-    autocmd Filetype python nmap <Leader>m :make<CR>
-    autocmd Filetype python nmap <Leader>mm :make<CR>
     autocmd Filetype python nmap <Leader>mn :set makeprg=
     autocmd Filetype python nmap <Leader>mp :set makeprg=python3\ %<CR>
     autocmd Filetype python nmap <Leader>mP :set makeprg=python\ %<CR>
@@ -131,9 +152,10 @@
 	"c
     autocmd Filetype c setlocal makeprg=gcc\ %\ &&\ ./a.out
     autocmd Filetype c setlocal autowrite
-    autocmd Filetype c nmap <Leader>mc :set makeprg=gcc\ %\ &&\ ./a.out<CR>
+    autocmd Filetype c nmap <Leader>mm :!gcc % && ./a.out <CR>
+    autocmd Filetype c nmap <Leader>mc :set makeprg=gcc\ -o\ vimout\ %\ &&\ ./vimout<CR>
 	"haskell
-    "autocmd Filetype haskell setlocal makeprg=ghc\ -o\ vimout\ %\ &&\ ./vimout
+    "autocmd Filetype haskell setlocal makeprg=ghc\ %\ &&\ ./a.out
     autocmd Filetype haskell setlocal makeprg=ghci\ %
     autocmd Filetype haskell setlocal autowrite
     autocmd Filetype haskell nmap <Leader>mh :set makeprg=ghci\ %<CR>
@@ -142,7 +164,27 @@
     "Prolog Settins
     let g:filetype_pl="prolog"
     autocmd Filetype prolog setlocal makeprg=swipl\ %
+    autocmd Filetype prolog nmap <Leader>mm :!swipl %<CR>
     autocmd Filetype prolog setlocal autowrite
+
+    "Digraph Latin Subscripts
+	execute "digraphs ks " . 0x2096 
+        execute "digraphs as " . 0x2090
+        execute "digraphs es " . 0x2091
+        execute "digraphs hs " . 0x2095
+        execute "digraphs is " . 0x1D62
+        execute "digraphs ks " . 0x2096
+        execute "digraphs ls " . 0x2097
+        execute "digraphs ms " . 0x2098
+        execute "digraphs ns " . 0x2099
+        execute "digraphs os " . 0x2092
+        execute "digraphs ps " . 0x209A
+        execute "digraphs rs " . 0x1D63
+        execute "digraphs ss " . 0x209B
+        execute "digraphs ts " . 0x209C
+        execute "digraphs us " . 0x1D64
+        execute "digraphs vs " . 0x1D65
+        execute "digraphs xs " . 0x2093
 "==============================================================================
 
 
@@ -172,6 +214,10 @@
 	" Mnemonic _i_nteractive
 	nnoremap <silent> <leader>gi :Git add -p %<CR>
 	nnoremap <silent> <leader>gg :SignifyToggle<CR>
+	autocmd User fugitive
+		    \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+		    \   nnoremap <buffer> .. :edit %:h<CR> |
+		    \ endif
     endif
 
     "Vim-easy-align
@@ -195,6 +241,11 @@
     if isdirectory(expand("~/.vim/bundle/ctrlp.vim"))
 	let g:ctrlp_working_path_mode = 'ra'
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.class,*.pyc,*.ctxt,*.bluej
+    endif
+
+    if isdirectory(expand("~/.vim/bundle/ctrlp-funky"))
+	nnoremap <Leader>f :CtrlPFunky<Cr>
+	"nnoremap <Leader>g :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
     endif
 
     "Latex-Suite
@@ -289,7 +340,7 @@
 	" If you want :UltiSnipsEdit to split your window.
 	let g:UltiSnipsEditSplit="vertical"
     endif
-    
+
     if isdirectory(expand("~/.vim/bundle/youcompleteme"))
 	let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 	let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
@@ -308,4 +359,6 @@
 
     if isdirectory(expand("~/.vim/bundle/vim-notes"))
 	let g:notes_directories = ['~/Dropbox/Vim Notes']
+	let g:notes_suffix = '.note'
+	"let g:notes_tab_indents = 0
     endif

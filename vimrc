@@ -29,7 +29,7 @@
   
  
     "Session Management
-    Plugin 'thaerkh/vim-workspace'
+    "Plugin 'thaerkh/vim-workspace'
     Plugin 'xolox/vim-session'
     Plugin 'sjl/gundo.vim'
 
@@ -111,7 +111,14 @@
     noremap <leader>;c :%s:::cg<Left><Left><Left>
     noremap<Leader>;' :'b,'es:::g<Left><Left>
     vnoremap <leader>;; :s:::g<Left><Left>
-
+    "case sensitivity
+    set ignorecase
+    set smartcase
+    "/word   : case insensitive
+    "/Word   : case sensitive
+    "/word\C : case sensitive
+    "/Word\c : case insensitive
+    
     "leader shortcuts
     "N.B. register yank must be followed by a movement
     noremap <leader>y "*y
